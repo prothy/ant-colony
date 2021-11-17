@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --sand: #fada73;
+    --darker-sand: #d4b54c;
+
+    background: var(--sand);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+
+    padding: 3rem;
+}
+
+canvas {
+    border: 1px solid var(--darker-sand);
+}
