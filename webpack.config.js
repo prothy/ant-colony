@@ -1,4 +1,5 @@
-import path from 'path'
+/* eslint-disable */
+const path = require('path')
 
 module.exports = {
     entry: './src/index.ts',
