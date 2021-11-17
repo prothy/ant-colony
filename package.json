@@ -12,8 +12,12 @@
     "phaser": "^3.55.2"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "eslint": "^8.2.0",
     "live-server": "^1.2.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.4",
     "webpack": "^5.64.1",
     "webpack-cli": "^4.9.1"
   }
