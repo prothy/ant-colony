@@ -1,10 +1,13 @@
 import Phaser from 'phaser'
 
+import Scene from './Scene'
+
 const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    transparent: true
+    backgroundColor: '#ccc',
+    scene: Scene
 }
 
 new Phaser.Game(config)
