@@ -1,0 +1,20 @@
+{
+  "name": "ant-colony",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack",
+    "start": "live-server --browser=chromium --open=dist --watch=dist"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "phaser": "^3.55.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "live-server": "^1.2.1",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1"
+  }
+}
