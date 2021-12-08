@@ -1,10 +1,13 @@
 import Ant from './actors/Ant'
 
 class Scene extends Phaser.Scene {
-    private ant: Ant
+    private ants: Ant[]
+
+    private pointerPositionInfo: Phaser.GameObjects.Text
 
     constructor() {
         super('scene')
+        this.ants = []
     }
 
     preload() {
@@ -12,12 +15,16 @@ class Scene extends Phaser.Scene {
     }
 
     create() {
-        this.ant = new Ant(this, this.cameras.main.centerX, 10)
-        
+        this.pointerPositionInfo = this.add.text(10, 10, this.input.activePointer.x + ' ' + this.input.activePointer.y)
     }
 
     update() {
-        this.ant.act()
+        if (this.input.activePointer.isDown) {
+            this.ants.push(new Ant(this, this.input.activePointer.x, this.input.activePointer.y))
+        }
+        this.ants.forEach(ant => ant.act())
+        
+        this.pointerPositionInfo.setText(this.input.activePointer.x + ' ' + this.input.activePointer.y)
     }
 }
 
