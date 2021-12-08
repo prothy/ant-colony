@@ -1,9 +1,14 @@
 import Ant from './actors/Ant'
+import Food from './actors/Food'
 
 class Scene extends Phaser.Scene {
     private ants: Ant[]
+    private foods: Food[]
 
     private pointerPositionInfo: Phaser.GameObjects.Text
+
+    public width: number
+    public height: number
 
     constructor() {
         super('scene')
@@ -11,6 +16,9 @@ class Scene extends Phaser.Scene {
 
     preload() {
         this.load.image('ant', 'assets/ant.png')
+
+        this.width = <number>this.game.config.width
+        this.height = <number>this.game.config.height
     }
 
     create() {
@@ -18,16 +26,25 @@ class Scene extends Phaser.Scene {
     
         this.ants = new Array(100)
         for (let i = 0; i < this.ants.length; i++) {
-            this.ants[i] = new Ant(this, <number>this.game.config.width / 2, <number>this.game.config.height / 2)
+            this.ants[i] = new Ant(this, this.width / 2, this.height / 2)
+        }
+
+        this.foods = new Array(10)
+        let foodPosX, foodPosY
+        for (let i = 0; i < this.foods.length; i++) {
+            foodPosX = Math.random() * this.width
+            foodPosY = Math.random() * this.height
+
+            this.foods[i] = new Food(this, foodPosX, foodPosY)
         }
 
         console.log(this.ants)
     }
 
     update() {
-        if (this.input.activePointer.isDown) {
-            this.ants.push(new Ant(this, this.input.activePointer.x, this.input.activePointer.y))
-        }
+        // if (this.input.activePointer.isDown) {
+        //     this.ants.push(new Ant(this, this.input.activePointer.x, this.input.activePointer.y))
+        // }
         this.ants.forEach(ant => ant.act())
         
         this.pointerPositionInfo.setText(this.input.activePointer.x + ' ' + this.input.activePointer.y)
