@@ -10,8 +10,11 @@ class Scene extends Phaser.Scene {
     public width: number
     public height: number
 
+    public frameIndex: integer
+
     constructor() {
         super('scene')
+        this.frameIndex = 0
     }
 
     preload() {
@@ -23,7 +26,7 @@ class Scene extends Phaser.Scene {
 
     create() {
         this.pointerPositionInfo = this.add.text(10, 10, this.input.activePointer.x + ' ' + this.input.activePointer.y)
-    
+
         this.ants = new Array(100)
         for (let i = 0; i < this.ants.length; i++) {
             this.ants[i] = new Ant(this, this.width / 2, this.height / 2)
@@ -42,10 +45,10 @@ class Scene extends Phaser.Scene {
     }
 
     update() {
-        // if (this.input.activePointer.isDown) {
-        //     this.ants.push(new Ant(this, this.input.activePointer.x, this.input.activePointer.y))
-        // }
-        this.ants.forEach(ant => ant.act())
+        this.frameIndex > 1000 ? this.frameIndex = 0 : this.frameIndex++
+        
+        console.log(this.frameIndex)
+        this.ants.forEach(ant => ant.act(this.frameIndex))
         
         this.pointerPositionInfo.setText(this.input.activePointer.x + ' ' + this.input.activePointer.y)
     }
