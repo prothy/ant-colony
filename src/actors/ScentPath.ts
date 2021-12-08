@@ -17,7 +17,12 @@ class ScentPath {
     }
 
     public setActive(bool: boolean): void {
-        this.path.forEach(scent => scent.setFoodFound(bool))
+        this.path.forEach(scent => {
+            scent.setFoodFound(bool)
+
+            const PATH_COLOR = bool ? 0xffff00 : 0xff0000
+            scent.setFillStyle(PATH_COLOR)
+        })
     }
 
 }
