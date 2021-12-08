@@ -7,7 +7,6 @@ class Scene extends Phaser.Scene {
 
     constructor() {
         super('scene')
-        this.ants = []
     }
 
     preload() {
@@ -16,6 +15,13 @@ class Scene extends Phaser.Scene {
 
     create() {
         this.pointerPositionInfo = this.add.text(10, 10, this.input.activePointer.x + ' ' + this.input.activePointer.y)
+    
+        this.ants = new Array(100)
+        for (let i = 0; i < this.ants.length; i++) {
+            this.ants[i] = new Ant(this, <number>this.game.config.width / 2, <number>this.game.config.height / 2)
+        }
+
+        console.log(this.ants)
     }
 
     update() {

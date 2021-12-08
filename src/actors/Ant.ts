@@ -4,6 +4,7 @@ class Ant extends Phaser.GameObjects.Sprite {
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'ant')
         this.scene = scene
+        this.rotation = Math.random() * 2 * Math.PI
 
         scene.add.existing(this)
     }

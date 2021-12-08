@@ -10,4 +10,6 @@ const config = {
     scene: Scene
 }
 
+console.log('asdf')
+
 new Phaser.Game(config)
