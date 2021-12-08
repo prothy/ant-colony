@@ -2,14 +2,14 @@ import Phaser from 'phaser'
 
 import Scene from './Scene'
 
-const config = {
-    type: Phaser.AUTO,
+const config: Phaser.Types.Core.GameConfig = {
     width: 800,
     height: 600,
     backgroundColor: '#ccc',
-    scene: Scene
+    scene: Scene,
+    physics: {
+        default: 'arcade'
+    }
 }
-
-console.log('asdf')
 
 new Phaser.Game(config)
