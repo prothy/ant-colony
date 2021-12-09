@@ -7,6 +7,7 @@ class Ant extends Phaser.GameObjects.Sprite {
     private distance = 2
 
     public scentPath: ScentPath
+    public searchingFood: boolean
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'ant')
@@ -15,8 +16,10 @@ class Ant extends Phaser.GameObjects.Sprite {
         this.depth = 1
 
         this.scentPath = new ScentPath(this.scene)
+        this.searchingFood = true
 
         scene.add.existing(this)
+        scene.physics.add.existing(this)
     }
 
     private isOutOfBounds(): boolean {

@@ -4,6 +4,7 @@ class Food extends Phaser.GameObjects.Ellipse {
         this.scene = scene
 
         scene.add.existing(this)
+        scene.physics.add.existing(this)
     }
 }
 

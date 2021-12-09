@@ -17,6 +17,7 @@ class Scent extends Phaser.GameObjects.Ellipse {
         this.smoothness = 8 // decrease object smoothness for performance
 
         scene.add.existing(this)
+        scene.physics.add.existing(this)
     }
 
     public setFoodFound(bool: boolean): void {
