@@ -5,15 +5,18 @@ class Scent extends Phaser.GameObjects.Ellipse {
     public direction: number
     private foodFound: boolean
 
+    public prevScent: Scent
+    public nextScent: Scent
+
     /**
      * 
      * @param direction - The direction in which the ant went intially
      */
-    constructor(scene: Phaser.Scene, x: number, y: number, direction: number) {
-        super(scene, x, y, 3, 3, 0xff0000)
+    constructor(scene: Phaser.Scene, x: number, y: number, direction: number, foodFound: boolean) {
+        super(scene, x, y, 3, 3, foodFound ? 0xff0000 : 0xffff00)
         this.direction = direction
 
-        this.foodFound = false
+        this.foodFound = foodFound
         this.smoothness = 8 // decrease object smoothness for performance
 
         scene.add.existing(this)

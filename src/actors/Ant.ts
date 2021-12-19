@@ -29,20 +29,37 @@ class Ant extends Phaser.GameObjects.Sprite {
         return this.x < 0 || this.x > width || this.y < 0 || this.y > height
     }
 
-    public act(frameIndex: integer): void {
+    private activeScentFound(): boolean {
+        return this.scene.physics.overlap(this, this.scentPath.activeTrail)
+    }
+
+    private moveRandomly(): void {
         const randomRotation = (Math.random() - 0.5)/4
 
         this.isOutOfBounds() ? this.rotation -= Math.PI : this.rotation += randomRotation
 
         this.x += this.distance * Math.cos(this.rotation)
         this.y += this.distance * Math.sin(this.rotation)
+    }
+
+    private followScent(): void {
+        return
+    }
+
+    public act(frameIndex: integer): void {
+        if (this.activeScentFound()) {
+            this.searchingFood = false
+        }
+
+        this.moveRandomly()
+        // this.searchingFood ? this.moveRandomly() : this.followScent()
 
         const SCENT_SPAWN_FREQUENCY = 10
 
         // wip: frameIndex as property does not exist??
         // this.scene.frameIndex
         if (((frameIndex / 10) * 10) % SCENT_SPAWN_FREQUENCY === 0) {
-            this.scentPath.append(this.x, this.y, this.rotation)
+            this.scentPath.append(this.x, this.y, this.rotation, this.searchingFood)
         }
     }
 

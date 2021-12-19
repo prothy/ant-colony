@@ -27,7 +27,7 @@ class Scene extends Phaser.Scene {
     create() {
         this.pointerPositionInfo = this.add.text(10, 10, this.input.activePointer.x + ' ' + this.input.activePointer.y)
 
-        this.ants = new Array(100)
+        this.ants = new Array(1)
         for (let i = 0; i < this.ants.length; i++) {
             this.ants[i] = new Ant(this, this.width / 2, this.height / 2)
         }
@@ -41,6 +41,8 @@ class Scene extends Phaser.Scene {
             this.foods[i] = new Food(this, foodPosX, foodPosY)
         }
 
+        console.log(this.physics.world.bodies)
+
         console.log(this.physics)
     }
 
@@ -50,8 +52,7 @@ class Scene extends Phaser.Scene {
         this.ants.forEach(ant => {
             ant.act(this.frameIndex)
             if (this.physics.overlap(ant, this.foods)) {
-                console.log(ant)
-                ant.scentPath.setActive(true)
+                ant.searchingFood = false
             }
         })
         
