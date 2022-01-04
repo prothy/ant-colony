@@ -1,8 +1,8 @@
 import Ant from './actors/Ant'
 import Food from './actors/Food'
 
-class Scene extends Phaser.Scene {
-    private ants: Ant[]
+class AntScene extends Phaser.Scene {
+    public ants: Ant[]
     private foods: Food[]
 
     private pointerPositionInfo: Phaser.GameObjects.Text
@@ -47,16 +47,20 @@ class Scene extends Phaser.Scene {
     update() {
         this.frameIndex > 1000 ? this.frameIndex = 0 : this.frameIndex++
         
-        this.ants.forEach(ant => {
+        this.ants.forEach((ant) => {
+            this.checkCollision(ant)
             ant.act(this.frameIndex)
-            if (this.physics.overlap(ant, this.foods)) {
-                console.log(ant)
-                ant.scentPath.setActive(true)
-            }
         })
         
         this.pointerPositionInfo.setText(this.input.activePointer.x + ' ' + this.input.activePointer.y)
     }
+
+    private checkCollision(ant: Ant): void {
+        if (this.physics.overlap(ant, this.foods) && ant.searchingFood) {
+            ant.searchingFood = false
+            ant.rotation -= Math.PI
+        }
+    }
 }
 
-export default Scene
+export default AntScene
