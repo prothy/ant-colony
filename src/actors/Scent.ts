@@ -1,29 +1,55 @@
+import AntScene from '../AntScene'
+import Ant from './Ant'
+
 /**
- * Creates a scent for ants to follow the food. They're small circles that store a direction in which the previous ant went.
+ * Creates a scent for ants to follow the food. They're small circles that with a set intensity that degrades over time.
  */
 class Scent extends Phaser.GameObjects.Ellipse {
+    private MAX_INTENSITY: integer
+    private intensity: integer
+
     public direction: number
-    private foodFound: boolean
+    public searchingFood: boolean
+    public ant: Ant
 
-    /**
-     * 
-     * @param direction - The direction in which the ant went intially
-     */
-    constructor(scene: Phaser.Scene, x: number, y: number, direction: number) {
-        super(scene, x, y, 3, 3, 0xff0000)
-        this.direction = direction
+    constructor(ant: Ant) {
+        super(ant.scene, ant.x, ant.y, 3, 3, ant.searchingFood ? 0xff0000 : 0xffff00)
 
-        this.foodFound = false
+        this.ant = ant
+        this.direction = ant.rotation
+        this.searchingFood = ant.searchingFood
+
         this.smoothness = 8 // decrease object smoothness for performance
 
-        scene.add.existing(this)
-        scene.physics.add.existing(this)
+        this.MAX_INTENSITY = ant.scents.length
+        this.intensity = this.MAX_INTENSITY
+
+        ant.scene.add.existing(this)
+        ant.scene.physics.add.existing(this)
     }
 
-    public setFoodFound(bool: boolean): void {
-        this.foodFound = bool
+    public act(): void {
+        this.degrade()
+        if (!this.searchingFood) this.checkCollision()
     }
 
+    private degrade(): void {
+        this.intensity--
+        // this.setAlpha(Math.log10(this.MAX_INTENSITY - this.intensity) + 1)
+
+        if (this.intensity === 0) {
+            this.destroy()
+        }
+    }
+
+    private checkCollision(): void {
+        this.ant.scene.physics.collide(this, this.ant.scene.ants, (scentBody, antBody) => {
+            const scent = scentBody.body.gameObject as Scent
+            const ant = antBody.body.gameObject as Ant
+
+            ant.adjacentScents.push(scent)
+        })
+    }
 }
 
 export default Scent
