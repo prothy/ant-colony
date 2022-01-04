@@ -1,4 +1,3 @@
-import AntScene from '../AntScene'
 import Ant from './Ant'
 
 /**

@@ -41,6 +41,8 @@ class AntScene extends Phaser.Scene {
             this.foods[i] = new Food(this, foodPosX, foodPosY)
         }
 
+        console.log(this.physics.world.bodies)
+
         console.log(this.physics)
     }
 
